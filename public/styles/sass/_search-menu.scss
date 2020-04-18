@@ -1,0 +1,37 @@
+.search-menu-wrapper {
+  display: block;
+  min-height: 40px;
+  width: 65vw;
+}
+
+.search-menu {
+  height: 70px;
+}
+
+.search-menu-item {
+  min-height: 70px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5rem;
+}
+
+.search-menu-button {
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
+
+.search-menu-tags-input {
+  height: 70px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5rem;
+  background: transparent;
+  border: 0;
+}
+
+.search-menu-tags-input-wrapper {
+  background: white;
+}
+
+.search-menu-select {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}

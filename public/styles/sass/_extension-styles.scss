@@ -1,13 +1,31 @@
 .background-hero-image {
-  background-image: url("/media/background.jpg");
+  background: linear-gradient(
+                  rgba(0, 0, 0, 0.5),
+                  rgba(0, 0, 0, 0.5)
+  ), url("/media/background.jpg");
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
   background-color: $dark;
+
 }
 
 .is-darken {
   filter: brightness(45%);
 }
 
+.logo-font {
+  font-family: 'Reenie Beanie', cursive;
+  color: white;
+  font-size: 18vw;
+  font-weight: 300;
+}
+
+.title-wrapper {
+  margin-bottom: 10px;
+}
+
+.search-wrapper {
+  margin-top: -140px;
+}
