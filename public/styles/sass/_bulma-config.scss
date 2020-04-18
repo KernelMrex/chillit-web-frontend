@@ -1,0 +1,8 @@
+// 1. Import the initial variables
+@import "../../../node_modules/bulma/sass/utilities/initial-variables";
+@import "../../../node_modules/bulma/sass/utilities/functions";
+
+// Redefining colors
+$dark: #263238;
+
+@import "../../../node_modules/bulma/bulma";
