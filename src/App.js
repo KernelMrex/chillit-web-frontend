@@ -1,11 +1,17 @@
 import React from 'react';
-import 'react-bulma-components/dist/react-bulma-components.min.css';
+import SearchPage from "./Search/SearchPage";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 function App() {
     return (
-        <div>
-            <h1>Chillit React frontend</h1>
-        </div>
+        <BrowserRouter>
+            <Switch>
+                <Route path="/">
+                    <SearchPage/>
+                </Route>
+            </Switch>
+        </BrowserRouter>
+
     );
 }
 

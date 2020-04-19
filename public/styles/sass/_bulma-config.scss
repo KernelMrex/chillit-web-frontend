@@ -6,3 +6,9 @@
 $dark: #263238;
 
 @import "../../../node_modules/bulma/bulma";
+
+.tags {
+  .tag {
+    border-radius: 20px;
+  }
+}

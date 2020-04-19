@@ -24,4 +24,4 @@ yarn-error.log*
 
 # My ignore
 .idea/
-./public/styles/css/*
+public/styles/css/*
