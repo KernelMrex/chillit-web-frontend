@@ -8,7 +8,7 @@ export function searchReducer(state = initialStatePrototype, action) {
     const newState = { ...state };
     switch (action.type) {
         case ACTION_PLACES_APPEND: 
-            newState.places.push(...action.payload);
+            newState.places = action.payload;
             return newState;
         case ACTION_PLACES_RESET:
             newState.places = [];
@@ -18,6 +18,6 @@ export function searchReducer(state = initialStatePrototype, action) {
     }
 }
 
-function getSearchInitialState() {
+export function getSearchInitialState() {
     return initialStatePrototype;
 }

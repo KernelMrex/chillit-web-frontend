@@ -7,8 +7,10 @@ import GoButton from "./GoButton";
 
 import { searchPlaces } from "../../requests/search";
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { placesAppend } from '../../redux/actions/search';
 
-export default class Menu extends React.Component {
+class ConnectedMenu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,7 +19,8 @@ export default class Menu extends React.Component {
             searchCityID: 1,
             isLoading: false,
             isLoaded: false,
-        }        
+        };    
+
         this.handleInputUpdate = this.handleInputUpdate.bind(this);
         this.handleGoButtonClick = this.handleGoButtonClick.bind(this);
     }
@@ -35,15 +38,15 @@ export default class Menu extends React.Component {
         });
     }
 
-
     handleGoButtonClick(event) {
         this.setState({
             isLoading: true,
         });
-        console.log("will search with " + this.state.searchInputValue);
 
         searchPlaces(this.state.searchInputValue, this.state.searchCityID).then((result) => {
-            console.log(result);
+            console.log("test: ", result.places);
+
+            this.props.storePlaces(result.places);
             this.setState({
                 isLoading: false,
                 isLoaded: true,
@@ -51,7 +54,6 @@ export default class Menu extends React.Component {
         }, (error) => {
             console.log(error);
         });
-
     }
 
     render() {
@@ -70,6 +72,16 @@ export default class Menu extends React.Component {
                 </div>
                 <FastSearchTags/>
             </div>
-        );            
+        );
     }
 }
+
+function mapDispatchToProps(dispatch) {
+    return {
+        storePlaces: places => dispatch(placesAppend(places))
+    };
+}
+
+const Menu = connect(null, mapDispatchToProps)(ConnectedMenu);
+
+export default Menu;

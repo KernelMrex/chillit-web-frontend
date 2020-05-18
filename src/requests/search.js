@@ -1,4 +1,4 @@
-const PLACES_STORE_URL = "places.chillit.com";
+const PLACES_STORE_URL = "192.168.20.6:18080";
 
 export function searchPlaces(query, cityID, offset = 0, amount = 2) {
     return new Promise((resolve, reject) => {
@@ -10,8 +10,7 @@ export function searchPlaces(query, cityID, offset = 0, amount = 2) {
         });
 
         fetch(url, {
-            method: "GET",
-            
+            method: "GET",  
         }).then((result) => {
             if (result.status !== 200) {
                 reject("bad returned status code " + result.status);
@@ -22,8 +21,8 @@ export function searchPlaces(query, cityID, offset = 0, amount = 2) {
                 return;
             }, (error) => {
                 reject(error);
-                return
-            })
+                return;
+            });
         }, (error) => {
             reject(error);
             return;
