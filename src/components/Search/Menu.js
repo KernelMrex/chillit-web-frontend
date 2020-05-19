@@ -1,87 +1,67 @@
 import React from 'react';
 
 import FastSearchTags from "./FastSearchTags";
-import ChooseCityControlAddon from "./ChooseCityControlAddon";
+import CitySelect from "./CitySelect";
 import InputSearchTags from "./InputSearchTags";
 import GoButton from "./GoButton";
 
-import { searchPlaces } from "../../requests/search";
+
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { placesAppend } from '../../redux/actions/search';
 
-class ConnectedMenu extends React.Component {
+export default class Menu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchInputValue: "",
-            searchCityName: "",
-            searchCityID: 1,
-            isLoading: false,
-            isLoaded: false,
+            searchQuery: "",
+            chosenCity: {
+                id: 0,
+                title: 0,
+            },
+            search: false,
         };    
 
         this.handleInputUpdate = this.handleInputUpdate.bind(this);
         this.handleGoButtonClick = this.handleGoButtonClick.bind(this);
+        this.handleCityUpate = this.handleCityUpate.bind(this);
     }
 
     handleInputUpdate(event) {
         this.setState({
-            searchInputValue: event.target.value,
+            searchQuery: event.target.value,
         });
     }
 
-    handleCityUpate(event) {
+    handleCityUpate(newCity) {
+        // TODO: auto determine city via geo
         this.setState({
-            searchCityName: "Kazan",
-            searchCityID: 1,
+            chosenCity: newCity,
         });
     }
 
     handleGoButtonClick(event) {
         this.setState({
-            isLoading: true,
-        });
-
-        searchPlaces(this.state.searchInputValue, this.state.searchCityID).then((result) => {
-            console.log("test: ", result.places);
-
-            this.props.storePlaces(result.places);
-            this.setState({
-                isLoading: false,
-                isLoaded: true,
-            });
-        }, (error) => {
-            console.log(error);
+            search: true,
         });
     }
 
     render() {
-        if (this.state.isLoaded) {
+        if (this.state.search) {
             return (
-                <Redirect push to={"/search?city_id=" + this.state.searchCityID + "&query=" + this.state.searchInputValue}/>
+                <Redirect push to={"/search?cid=" + this.state.chosenCity.id + "&q=" + this.state.searchQuery }/>
             );
         }
 
         return (
             <div className="search-menu-wrapper">
                 <div className="field has-addons search-menu">
-                    <ChooseCityControlAddon />
+                    <CitySelect onCityUpdate={this.handleCityUpate}/>
                     <InputSearchTags onUpdate={this.handleInputUpdate}/>
-                    <GoButton onClick={this.handleGoButtonClick} isLoading={this.state.isLoading}/>
+                    <GoButton onClick={this.handleGoButtonClick}/>
                 </div>
                 <FastSearchTags/>
             </div>
         );
     }
 }
-
-function mapDispatchToProps(dispatch) {
-    return {
-        storePlaces: places => dispatch(placesAppend(places))
-    };
-}
-
-const Menu = connect(null, mapDispatchToProps)(ConnectedMenu);
-
-export default Menu;

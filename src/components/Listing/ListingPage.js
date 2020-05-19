@@ -1,14 +1,47 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { PlaceCard } from './PlaceCard';
+import { searchPlaces } from '../../requests/search';
 
-class ConnectedListingPage extends React.Component {
+export default class ListingPage extends React.Component {
     constructor(props) {
         super(props);
         
         this.state = {
-            places: this.props.places,
+            request: {
+                query: "",
+                cityId: 0,
+            },
+
+            places: [],
+            isLoaded: false,
+            isError: false,
         }
+    }
+
+    componentDidMount() {
+        // Parsing url
+        const url = new URL(window.location.href);
+        let query = url.searchParams.get('q');
+        let cityId = url.searchParams.get('cid');
+        this.setState({
+            request: {
+                query: query,
+                cityId: cityId,
+            },
+        });
+
+        // Requesting backend
+        searchPlaces(query, cityId).then((result) => {
+            this.setState({
+                places: result,
+                isLoaded: true,
+            });
+        }, (error) => {
+            this.setState({
+                isLoaded: false,
+                isError: true,
+            });
+        });
     }
 
     renderPlaces(places) {
@@ -20,17 +53,29 @@ class ConnectedListingPage extends React.Component {
     }
 
     render() {
-        return(
-            <div>
-                <p>Row places:</p>
-                { this.renderPlaces(this.state.places) }
-            </div>
-        );
+        if (this.state.isError) {
+            // TODO: error animation and request to realod the page manually
+            return(
+                <div>
+                    <p>Something went wrong... Please, reload the page</p>
+                </div>
+            );
+        } else if (!this.state.isLoaded) {
+            // TODO: loading animation
+            return(
+                <div>
+                    <p>Loading...</p>
+                </div>
+            );
+        } else {
+            // TODO: make a component for table
+            return(
+                <div>
+                    <p>Row places:</p>
+                    { this.renderPlaces(this.state.places) }
+                </div>
+            );
+        }
     }
 }
 
-function mapStateToProps(state) {
-    return { places: state.search.places };
-}
-
-export const ListingPage = connect(mapStateToProps)(ConnectedListingPage);

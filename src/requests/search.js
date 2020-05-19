@@ -17,7 +17,7 @@ export function searchPlaces(query, cityID, offset = 0, amount = 2) {
                 return;
             }
             result.json().then((result) => {
-                resolve(result);
+                resolve(result.places);
                 return;
             }, (error) => {
                 reject(error);
