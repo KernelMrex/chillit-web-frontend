@@ -7,8 +7,6 @@ import GoButton from "./GoButton";
 
 
 import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { placesAppend } from '../../redux/actions/search';
 
 export default class Menu extends React.Component {
     constructor(props) {
