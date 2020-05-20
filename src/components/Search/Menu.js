@@ -4,20 +4,21 @@ import FastSearchTags from "./FastSearchTags";
 import CitySelect from "./CitySelect";
 import InputSearchTags from "./InputSearchTags";
 import GoButton from "./GoButton";
+import { connect } from 'react-redux';
+import { appendPlaces } from '../../redux/actions/search';
+import { searchPlaces } from '../../requests/search';
 
-
-import { Redirect } from 'react-router-dom';
-
-export default class Menu extends React.Component {
+class ConnectedMenu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            isLoading: false,
+            isError: false,
             searchQuery: "",
             chosenCity: {
-                id: 0,
+                id: 1,
                 title: 0,
             },
-            search: false,
         };    
 
         this.handleInputUpdate = this.handleInputUpdate.bind(this);
@@ -32,7 +33,6 @@ export default class Menu extends React.Component {
     }
 
     handleCityUpate(newCity) {
-        // TODO: auto determine city via geo
         this.setState({
             chosenCity: newCity,
         });
@@ -40,26 +40,52 @@ export default class Menu extends React.Component {
 
     handleGoButtonClick(event) {
         this.setState({
-            search: true,
+            isLoading: true,
+        });
+
+        searchPlaces(this.state.searchQuery, this.state.chosenCity.id).then((result) => {
+            this.props.appendPlaces(result);
+            this.setState({
+                isLoading: false,
+            });
+        }, (error) => {
+            this.setState({
+                isLoading: false,
+                isError: true,
+            });
+            console.log("Could not request places:", error);
         });
     }
 
     render() {
-        if (this.state.search) {
-            return (
-                <Redirect push to={"/search?cid=" + this.state.chosenCity.id + "&q=" + this.state.searchQuery }/>
-            );
-        }
-
         return (
             <div className="search-menu-wrapper">
                 <div className="field has-addons search-menu">
                     <CitySelect onCityUpdate={this.handleCityUpate}/>
                     <InputSearchTags onUpdate={this.handleInputUpdate}/>
-                    <GoButton onClick={this.handleGoButtonClick}/>
+                    <GoButton onClick={this.handleGoButtonClick} isLoading={this.state.isLoading} isError={this.state.isError}/>
                 </div>
                 <FastSearchTags/>
             </div>
         );
     }
 }
+
+function mapStateToProps(state) {
+    const { search } = state;
+
+    return {
+        places: search.places,
+        offset: search.offset,
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        appendPlaces: places => dispatch(appendPlaces(places))
+    };
+}
+
+const Menu = connect(mapStateToProps, mapDispatchToProps)(ConnectedMenu);
+
+export default Menu;

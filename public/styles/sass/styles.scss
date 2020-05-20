@@ -3,8 +3,11 @@
 @import "bulma-config";
 @import "extension-styles";
 
+@import "background.scss";
+
 // components
 @import "search-menu";
+@import "cards";
 
 // fonts
 @import "https://fonts.googleapis.com/css?family=Reenie+Beanie|Roboto:300&display=swap";
