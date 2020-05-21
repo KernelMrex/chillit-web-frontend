@@ -3,6 +3,7 @@ import Logo from "./Logo";
 import Menu from "./Menu";
 import { connect } from 'react-redux';
 import PlacesListing from './PlacesListing';
+import LoadedIndicator from './LoadedIndicator';
 
 function ConnectedSearchPage(props) {
     if (!props.hasPlacesToDisplay) {
@@ -26,6 +27,9 @@ function ConnectedSearchPage(props) {
                         <div className="is-centered search-wrapper">
                             <Logo/>
                             <Menu/>
+                            <div>
+                                <LoadedIndicator/>
+                            </div>
                         </div>
                     </div>
                 </section>
