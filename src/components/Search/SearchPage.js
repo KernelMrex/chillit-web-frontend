@@ -2,6 +2,7 @@ import React from 'react';
 import Logo from "./Logo";
 import Menu from "./Menu";
 import { connect } from 'react-redux';
+import PlacesListing from './PlacesListing';
 
 function ConnectedSearchPage(props) {
     if (!props.hasPlacesToDisplay) {
@@ -29,9 +30,7 @@ function ConnectedSearchPage(props) {
                     </div>
                 </section>
                 <section className="listing">
-                    <div>
-                        <h1>HOLA!</h1>
-                    </div>
+                    <PlacesListing/>
                 </section>
             </div>
         );

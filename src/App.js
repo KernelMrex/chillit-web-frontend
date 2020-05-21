@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import SearchPage from "./components/Search/SearchPage";
-import ListingPage from './components/Listing/ListingPage';
 
 
 function App() {
@@ -11,9 +10,6 @@ function App() {
             <Switch>
                 <Route path="/">
                     <SearchPage/>
-                </Route>
-                <Route path="/search">
-                    <ListingPage/>
                 </Route>
             </Switch>
         </BrowserRouter>
