@@ -14,11 +14,11 @@ class ConnectedPlacesListing extends React.Component {
         const { places } = this.state;
 
         return (
-            <div class="container is-4-desktop">
-                <div className="row columns is-multiline cards-list">
+            <div className="container is-4-desktop">
+                <div className="row columns is-multiline cards-list" id="listing">
                     { 
                         places.map( (place, i) => (
-                            <div class="column is-4">
+                            <div className="column is-4" key={i}>
                                 <PlaceCard place={place} key={i}/>
                             </div>
                             )

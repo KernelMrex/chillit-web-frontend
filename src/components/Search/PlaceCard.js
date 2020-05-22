@@ -2,24 +2,24 @@ import React from 'react';
 
 export function PlaceCard(props) {
     return (
-        <div class="card">
-            <div class="card-image">
-                    <figure class="image is-4by3">
-                      <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder"></img>
+        <div className="card">
+            <div className="card-image">
+                    <figure className="image is-4by3">
+                      <img src={ props.place.image_url } alt="Placeholder"></img>
                     </figure>
                 </div>
-                <div class="card-content">
-                    <div class="media">
-                        <div class="media-content">
-                        <p class="title is-4">{ props.place.title }</p>
-                        <p class="subtitle is-6">{ props.place.link }</p>
+                <div className="card-content">
+                    <div className="media">
+                        <div className="media-content">
+                        <p className="title is-4">{ props.place.title }</p>
+                        <p className="subtitle is-6">{ props.place.link }</p>
                       </div>
                     </div>
-                    <div class="content">
+                    <div className="content">
                         <p>
                             { props.place.description }
                         </p>                        
-                        <a href="#test">#ресторан</a>
+                        <a href="#test">#ресторан #кафе</a>
                   </div>
                 </div>
             </div>    

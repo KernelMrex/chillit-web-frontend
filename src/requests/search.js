@@ -1,6 +1,6 @@
 const PLACES_STORE_URL = "192.168.20.6:18080";
 
-export function searchPlaces(query, cityID, offset = 0, amount = 2) {
+export function searchPlaces(query, cityID, offset = 0, amount = 20) {
     return new Promise((resolve, reject) => {
         let url = buildURLQuery("http://" + PLACES_STORE_URL + "/places", {
             "query": query,

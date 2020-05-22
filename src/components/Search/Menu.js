@@ -5,7 +5,7 @@ import CitySelect from "./CitySelect";
 import InputSearchTags from "./InputSearchTags";
 import GoButton from "./GoButton";
 import { connect } from 'react-redux';
-import { appendPlaces } from '../../redux/actions/search';
+import { appendPlaces, resetPlaces } from '../../redux/actions/search';
 import { searchPlaces } from '../../requests/search';
 
 class ConnectedMenu extends React.Component {
@@ -17,7 +17,7 @@ class ConnectedMenu extends React.Component {
             searchQuery: "",
             chosenCity: {
                 id: 1,
-                title: 0,
+                title: "Москва",
             },
         };    
 
@@ -39,6 +39,8 @@ class ConnectedMenu extends React.Component {
     }
 
     handleGoButtonClick(event) {
+        this.props.resetPlaces();
+
         this.setState({
             isLoading: true,
         });
@@ -82,7 +84,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        appendPlaces: places => dispatch(appendPlaces(places))
+        appendPlaces: places => dispatch(appendPlaces(places)),
+        resetPlaces: places => dispatch(resetPlaces(places)),
     };
 }
 
