@@ -1,6 +1,8 @@
 import React from 'react';
-import SearchPage from "./Search/SearchPage";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+
+import SearchPage from "./components/Search/SearchPage";
+
 
 function App() {
     return (
@@ -11,7 +13,6 @@ function App() {
                 </Route>
             </Switch>
         </BrowserRouter>
-
     );
 }
 
